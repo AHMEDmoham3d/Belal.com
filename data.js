@@ -43,7 +43,16 @@ const systemData = {
             rank: 4,
             isBlocked: false,
             joinDate: "2024-02-01"
-        }
+        },
+            {
+      id: "Aiten10",
+      name: "ايتن فتحى",
+      points: 0,
+      absences: 0,
+      rank: 5,
+      isBlocked: false,
+      joinDate: "2024-02-01"
+    }
     ],
 
     // بطل الأسبوع
