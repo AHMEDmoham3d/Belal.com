@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>  Behagat Fighters</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="sports-styles.css">
+</head>
+<body>
+    <!-- صفحة تسجيل الدخول -->
+    <div id="loginPage" class="page active">
+        <div class="login-container">
+            <div class="login-card">
+                <div class="logo-section">
+                    <!-- <div class="logo">
+                        <i class="fas fa-trophy"></i>
+                    </div> -->
+                    <img src="img.jpg" height="150">
+                    <h1>Behagat Fighters</h1>
+                    <p>نحو التميز الرياضي</p>
+                </div>
+                
+                <form id="loginForm" class="login-form">
+                    <div class="form-group">
+                        <label for="userId">كلمه المرور </label>
+                        <input type="text" id="userId" placeholder="أدخل  كلمه المرور الخاص بك" required>
+                        <i class="fas fa-user form-icon"></i>
+                    </div>
+                    
+                    <button type="submit" class="login-btn">
+                        <span>دخول</span>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </form>
+                
+                <!-- <div class="admin-link">
+                    <p style="color: #666; font-size: 0.9rem; text-align: center;">
+                        للمدربين: يرجى استخدام الرابط الخاص المرسل إليكم
+                    </p>
+                </div> -->
+            </div>
+            
+            <div class="background-animation">
+                <div class="ball ball1"></div>
+                <div class="ball ball2"></div>
+                <div class="ball ball3"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة اللاعب -->
+    <div id="playerPage" class="page">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <i class="fas fa-trophy"></i>
+                <span> Behagat Fighters</span>
+            </div>
+            <div class="nav-user">
+                <span id="playerName">مرحباً، </span>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="dashboard-grid">
+                <!-- بطاقة الملف الشخصي -->
+                <div class="card profile-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-user-circle"></i> الملف الشخصي</h3>
+                    </div>
+                    <div class="profile-info">
+                        <div class="profile-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="profile-details">
+                            <h4 id="profileName">اسم اللاعب</h4>
+                            <p id="profileRank">المرتبة: #1</p>
+                            <div class="profile-stats">
+                                <div class="stat">
+                                    <span class="stat-value" id="profilePoints">0</span>
+                                    <span class="stat-label">النقاط</span>
+                                </div>
+                                <div class="stat">
+                                    <span class="stat-value" id="profileAbsences">0</span>
+                                    <span class="stat-label">الغيابات</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بطاقة بطل الأسبوع -->
+                <div class="card champion-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-crown"></i> بطل الأسبوع</h3>
+                    </div>
+                    <div class="champion-info" id="championInfo">
+                        <div class="champion-avatar">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="champion-details">
+                            <h4 id="championName">لم يتم الإعلان بعد</h4>
+                            <p>البطل الحالي للأسبوع</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ترتيب اللاعبين -->
+                <div class="card rankings-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-medal"></i> ترتيب اللاعبين</h3>
+                    </div>
+                    <div class="rankings-list" id="rankingsList">
+                        <!-- سيتم إضافة الترتيب هنا -->
+                    </div>
+                </div>
+
+                <!-- الرسائل -->
+                <div class="card messages-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-envelope"></i> الرسائل</h3>
+                        <button class="chat-btn" onclick="openChat()">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                    </div>
+                    <div class="messages-list" id="messagesList">
+                        <!-- سيتم إضافة الرسائل هنا -->
+                    </div>
+                </div>
+
+                <!-- المنشورات -->
+                <div class="card posts-card">
+                    <div class="card-header">
+                        <h3><i class="fas fa-newspaper"></i> المنشورات</h3>
+                        <button class="add-post-btn" onclick="showAddPostModal()">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div class="posts-list" id="postsList">
+                        <!-- سيتم إضافة المنشورات هنا -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة المدرب -->
+    <div id="coachPage" class="page">
+        <nav class="navbar coach-nav">
+            <div class="nav-brand">
+                <i class="fas fa-shield-alt"></i>
+                <span>لوحة تحكم المدرب</span>
+            </div>
+            <div class="nav-actions">
+                <button class="nav-btn" onclick="showSection('players')">
+                    <i class="fas fa-users"></i>
+                    اللاعبين
+                </button>
+                <button class="nav-btn" onclick="showSection('posts')">
+                    <i class="fas fa-newspaper"></i>
+                    المنشورات
+                </button>
+                <button class="nav-btn" onclick="showSection('messages')">
+                    <i class="fas fa-comments"></i>
+                    الرسائل
+                </button>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
+            </div>
+        </nav>
+
+        <div class="container">
+            <!-- قسم إدارة اللاعبين -->
+            <div id="playersSection" class="coach-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-users"></i> إدارة اللاعبين</h2>
+                    <button class="primary-btn" onclick="showAddPlayerModal()">
+                        <i class="fas fa-user-plus"></i>
+                        إضافة لاعب
+                    </button>
+                </div>
+
+                <div class="players-grid" id="playersGrid">
+                    <!-- سيتم إضافة اللاعبين هنا -->
+                </div>
+            </div>
+
+            <!-- قسم المنشورات -->
+            <div id="postsSection" class="coach-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-newspaper"></i> إدارة المنشورات</h2>
+                    <button class="primary-btn" onclick="showAddPostModal()">
+                        <i class="fas fa-plus"></i>
+                        إضافة منشور
+                    </button>
+                </div>
+
+                <div class="posts-list" id="coachPostsList">
+                    <!-- سيتم إضافة المنشورات هنا -->
+                </div>
+            </div>
+
+            <!-- قسم الرسائل -->
+            <div id="messagesSection" class="coach-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-comments"></i> الرسائل</h2>
+                </div>
+
+                <div class="messages-container">
+                    <div class="players-list">
+                        <h3>اختر لاعب للمحادثة</h3>
+                        <div id="playersForChat">
+                            <!-- قائمة اللاعبين للمحادثة -->
+                        </div>
+                    </div>
+                    <div class="chat-area" id="chatArea">
+                        <div class="chat-placeholder">
+                            <i class="fas fa-comments"></i>
+                            <p>اختر لاعب لبدء المحادثة</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- النوافذ المنبثقة -->
+    <div id="modalOverlay" class="modal-overlay">
+        <!-- نافذة إضافة لاعب -->
+        <div id="addPlayerModal" class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-user-plus"></i> إضافة لاعب جديد</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="addPlayerForm" class="modal-form">
+                <div class="form-group">
+                    <label for="playerName">اسم اللاعب</label>
+                    <input type="text" id="playerNameInput" required>
+                </div>
+                <div class="form-group">
+                    <label for="playerId">رقم الهوية</label>
+                    <input type="text" id="playerIdInput" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">إضافة</button>
+                    <button type="button" class="secondary-btn" onclick="closeModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- نافذة إضافة منشور -->
+        <div id="addPostModal" class="modal">
+            <div class="modal-header">
+                <h3><i class="fas fa-plus"></i> إضافة منشور جديد</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="addPostForm" class="modal-form">
+                <div class="form-group">
+                    <label for="postContent">محتوى المنشور</label>
+                    <textarea id="postContent" rows="4" placeholder="اكتب محتوى المنشور هنا..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="postMedia">إضافة وسائط</label>
+                    <div class="media-options">
+                        <input type="file" id="imageInput" accept="image/*" style="display: none;">
+                        <input type="file" id="videoInput" accept="video/*" style="display: none;">
+                        <input type="file" id="audioInput" accept="audio/*" style="display: none;">
+                        <input type="url" id="youtubeInput" placeholder="رابط يوتيوب" style="display: none;">
+                        
+                        <button type="button" class="media-btn" onclick="document.getElementById('imageInput').click()">
+                            <i class="fas fa-image"></i> صورة
+                        </button>
+                        <button type="button" class="media-btn" onclick="document.getElementById('videoInput').click()">
+                            <i class="fas fa-video"></i> فيديو
+                        </button>
+                        <button type="button" class="media-btn" onclick="document.getElementById('audioInput').click()">
+                            <i class="fas fa-microphone"></i> صوت
+                        </button>
+                        <button type="button" class="media-btn" onclick="document.getElementById('youtubeInput').style.display='block'">
+                            <i class="fab fa-youtube"></i> يوتيوب
+                        </button>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-btn">نشر</button>
+                    <button type="button" class="secondary-btn" onclick="closeModal()">إلغاء</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- نافذة المحادثة -->
+        <div id="chatModal" class="modal chat-modal">
+            <div class="modal-header">
+                <h3 id="chatTitle"><i class="fas fa-comments"></i> المحادثة</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <!-- الرسائل ستظهر هنا -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="اكتب رسالتك...">
+                    <button onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="sports-data.js"></script>
+    <script src="sports-script.js"></script>
+</body>
+</html>

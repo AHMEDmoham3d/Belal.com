@@ -1,0 +1,94 @@
+{
+  "coach": {
+    "id": "BelalMphamed",
+    "name": "المدرب بلال محمد",
+    "adminLink": "?admin=BelalMphamed&access=full"
+  },
+  "players": [
+    {
+      "id": "ahmed123",
+      "name": "أحمد",
+      "points": 85,
+      "absences": 1,
+      "rank": 1,
+      "isBlocked": false,
+      "joinDate": "2024-01-15"
+    },
+    {
+      "id": "player002",
+      "name": "أحمد علي",
+      "points": 78,
+      "absences": 2,
+      "rank": 2,
+      "isBlocked": false,
+      "joinDate": "2024-01-20"
+    },
+    {
+      "id": "player003",
+      "name": "علي محمود",
+      "points": 72,
+      "absences": 0,
+      "rank": 3,
+      "isBlocked": false,
+      "joinDate": "2024-01-25"
+    },
+    {
+      "id": "player004",
+      "name": "خالد أحمد",
+      "points": 65,
+      "absences": 3,
+      "rank": 4,
+      "isBlocked": false,
+      "joinDate": "2024-02-01"
+    }
+  ],
+  "championOfWeek": {
+    "playerId": "ahmed123",
+    "week": "2024-W48",
+    "setDate": "2024-12-01"
+  },
+  "posts": [
+    {
+      "id": "post001",
+      "authorId": "BelalMphamed",
+      "authorName": "المدرب بلال محمد",
+      "content": "مبروك للاعبين على الأداء الممتاز في التدريب اليوم! 💪",
+      "timestamp": "2024-12-01T10:30:00Z",
+      "mediaType": null,
+      "mediaUrl": null,
+      "likes": ["ahmed123", "player002"],
+      "comments": [
+        {
+          "playerId": "ahmed123",
+          "playerName": "أحمد",
+          "content": "شكراً كابتن! 🙏",
+          "timestamp": "2024-12-01T10:45:00Z"
+        }
+      ]
+    }
+  ],
+  "privateMessages": [
+    {
+      "chatId": "BelalMphamed_ahmed123",
+      "messages": [
+        {
+          "senderId": "BelalMphamed",
+          "senderName": "المدرب بلال محمد",
+          "content": "أداؤك ممتاز اليوم أحمد، استمر كذلك!",
+          "timestamp": "2024-12-01T16:00:00Z"
+        },
+        {
+          "senderId": "ahmed123",
+          "senderName": "أحمد",
+          "content": "شكراً كابتن! سأبذل قصارى جهدي",
+          "timestamp": "2024-12-01T16:05:00Z"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "weeklyChampionEnabled": true,
+    "allowPlayerPosts": true,
+    "maxAbsencesBeforeWarning": 5
+  }
+}
