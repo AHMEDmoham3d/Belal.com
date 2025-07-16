@@ -1,13 +1,10 @@
 // بيانات النظام
 const systemData = {
-    // المدرب
     coach: {
         id: "coach123",
         name: "المدرب أحمد محمد",
         adminLink: "?admin=coach123&access=full"
     },
-
-    // اللاعبين
     players: [
         {
             id: "logain913",
@@ -19,34 +16,39 @@ const systemData = {
             joinDate: "2024-01-15"
         },
         {
-            id: "player003",
-            name: "علي محمود",
-            points: 82,
-            absences: 1,
+            id: "Aiten123",
+            name: "ايتن فتحى",
+            points: 0,
+            absences: 0,
             rank: 2,
             isBlocked: false,
             joinDate: "2024-01-25"
         },
         {
-            id: "Ali",
-            name: "علي ",
+            id: "Farah123",
+            name: "فرح عادل",
             points: 82,
             absences: 1,
             rank: 3,
             isBlocked: false,
             joinDate: "2024-01-25"
         },
- 
+        {
+            id: "remas123",
+            name: "ريماس طارق ",
+            points: 50,
+            absences: 0,
+            rank: 4,
+            isBlocked: false,
+            joinDate: "2024-01-20"
+        },
+        
     ],
-
-    // بطل الأسبوع
     championOfWeek: {
         playerId: "player001",
         week: "2024-W48",
         setDate: "2024-12-01"
     },
-
-    // المنشورات
     posts: [
         {
             id: "post001",
@@ -78,8 +80,6 @@ const systemData = {
             comments: []
         }
     ],
-
-    // الرسائل الخاصة
     privateMessages: [
         {
             chatId: "coach123_player001",
@@ -92,7 +92,7 @@ const systemData = {
                 },
                 {
                     senderId: "player001",
-                    senderName: "محمد أحمد", 
+                    senderName: "محمد أحمد",
                     content: "شكراً كابتن! سأبذل قصارى جهدي",
                     timestamp: "2024-12-01T16:05:00Z"
                 }
@@ -110,8 +110,6 @@ const systemData = {
             ]
         }
     ],
-
-    // الإعدادات العامة
     settings: {
         weeklyChampionEnabled: true,
         allowPlayerPosts: true,
@@ -119,7 +117,6 @@ const systemData = {
     }
 };
 
-// وظائف حفظ وتحميل البيانات
 function saveData() {
     try {
         localStorage.setItem('sportsAcademyData', JSON.stringify(systemData));
@@ -135,7 +132,6 @@ function loadData() {
         const savedData = localStorage.getItem('sportsAcademyData');
         if (savedData) {
             const parsedData = JSON.parse(savedData);
-            // دمج البيانات المحفوظة مع البيانات الافتراضية
             Object.assign(systemData, parsedData);
         }
         return true;
@@ -145,134 +141,83 @@ function loadData() {
     }
 }
 
-// وظائف مساعدة للبيانات
 function getPlayerById(playerId) {
     return systemData.players.find(player => player.id === playerId);
 }
 
-function getPlayerByRank(rank) {
-    return systemData.players.find(player => player.rank === rank);
-}
-
 function updatePlayerRanks() {
-    // ترتيب اللاعبين حسب النقاط (تنازلي) ثم الغيابات (تصاعدي)
-    const sortedPlayers = [...systemData.players].sort((a, b) => {
-        if (a.isBlocked && !b.isBlocked) return 1;
-        if (!a.isBlocked && b.isBlocked) return -1;
+    const sortedPlayers = [...systemData.players].filter(p => !p.isBlocked).sort((a, b) => {
         if (a.points !== b.points) return b.points - a.points;
         return a.absences - b.absences;
     });
-
-    // تحديث الترتيب
     sortedPlayers.forEach((player, index) => {
         const originalPlayer = getPlayerById(player.id);
-        if (originalPlayer) {
-            originalPlayer.rank = player.isBlocked ? 999 : index + 1;
-        }
+        if (originalPlayer) originalPlayer.rank = index + 1;
     });
-
     saveData();
 }
 
 function addPlayer(name, id) {
-    if (getPlayerById(id)) {
-        return { success: false, message: 'هذا الرقم مستخدم مسبقاً' };
-    }
-
-    const newPlayer = {
-        id: id,
-        name: name,
+    if (getPlayerById(id)) return { success: false, message: 'هذا الرقم مستخدم مسبقاً' };
+    systemData.players.push({
+        id,
+        name,
         points: 0,
         absences: 0,
-        rank: systemData.players.length + 1,
+        rank: 0,
         isBlocked: false,
         joinDate: new Date().toISOString().split('T')[0]
-    };
-
-    systemData.players.push(newPlayer);
+    });
     updatePlayerRanks();
-    
     return { success: true, message: 'تم إضافة اللاعب بنجاح' };
 }
 
 function removePlayer(playerId) {
-    const playerIndex = systemData.players.findIndex(p => p.id === playerId);
-    if (playerIndex === -1) {
-        return { success: false, message: 'اللاعب غير موجود' };
-    }
-
-    systemData.players.splice(playerIndex, 1);
-    
-    // إزالة رسائل اللاعب
-    systemData.privateMessages = systemData.privateMessages.filter(
-        chat => !chat.chatId.includes(playerId)
-    );
-    
-    // إزالة تفاعلات اللاعب مع المنشورات
+    const i = systemData.players.findIndex(p => p.id === playerId);
+    if (i === -1) return { success: false, message: 'اللاعب غير موجود' };
+    systemData.players.splice(i, 1);
+    systemData.privateMessages = systemData.privateMessages.filter(c => !c.chatId.includes(playerId));
     systemData.posts.forEach(post => {
         post.likes = post.likes.filter(id => id !== playerId);
-        post.comments = post.comments.filter(comment => comment.playerId !== playerId);
+        post.comments = post.comments.filter(c => c.playerId !== playerId);
     });
-
     updatePlayerRanks();
     return { success: true, message: 'تم حذف اللاعب بنجاح' };
 }
 
 function togglePlayerBlock(playerId) {
     const player = getPlayerById(playerId);
-    if (!player) {
-        return { success: false, message: 'اللاعب غير موجود' };
-    }
-
+    if (!player) return { success: false, message: 'اللاعب غير موجود' };
     player.isBlocked = !player.isBlocked;
     updatePlayerRanks();
-    saveData();
-    
-    return { 
-        success: true, 
-        message: player.isBlocked ? 'تم حظر اللاعب' : 'تم إلغاء حظر اللاعب',
-        isBlocked: player.isBlocked
-    };
+    return { success: true, message: player.isBlocked ? 'تم حظر اللاعب' : 'تم إلغاء حظر اللاعب' };
 }
 
 function updatePlayerPoints(playerId, change) {
     const player = getPlayerById(playerId);
-    if (!player) {
-        return { success: false, message: 'اللاعب غير موجود' };
-    }
-
+    if (!player) return { success: false, message: 'اللاعب غير موجود' };
     player.points = Math.max(0, player.points + change);
     updatePlayerRanks();
-    
     return { success: true, message: 'تم تحديث النقاط بنجاح' };
 }
 
 function updatePlayerAbsences(playerId, change) {
     const player = getPlayerById(playerId);
-    if (!player) {
-        return { success: false, message: 'اللاعب غير موجود' };
-    }
-
+    if (!player) return { success: false, message: 'اللاعب غير موجود' };
     player.absences = Math.max(0, player.absences + change);
     updatePlayerRanks();
-    
     return { success: true, message: 'تم تحديث الغيابات بنجاح' };
 }
 
 function setChampionOfWeek(playerId) {
-    const player = getPlayerById(playerId);
-    if (!player) {
-        return { success: false, message: 'اللاعب غير موجود' };
-    }
-
+    if (!getPlayerById(playerId)) return { success: false, message: 'اللاعب غير موجود' };
     systemData.championOfWeek = {
-        playerId: playerId,
+        playerId,
         week: getWeekNumber(),
         setDate: new Date().toISOString()
     };
-    
     saveData();
-    return { success: true, message: 'تم تعيين بطل الأسبوع بنجاح' };
+    return { success: true, message: 'تم تعيين بطل الأسبوع' };
 }
 
 function getWeekNumber() {
@@ -284,103 +229,74 @@ function getWeekNumber() {
 }
 
 function addPost(authorId, authorName, content, mediaType = null, mediaUrl = null) {
-    const newPost = {
+    const post = {
         id: 'post' + Date.now(),
-        authorId: authorId,
-        authorName: authorName,
-        content: content,
+        authorId,
+        authorName,
+        content,
         timestamp: new Date().toISOString(),
-        mediaType: mediaType,
-        mediaUrl: mediaUrl,
+        mediaType,
+        mediaUrl,
         likes: [],
         comments: []
     };
-
-    systemData.posts.unshift(newPost);
+    systemData.posts.unshift(post);
     saveData();
-    
-    return { success: true, message: 'تم إضافة المنشور بنجاح', post: newPost };
+    return { success: true, message: 'تم إضافة المنشور', post };
 }
 
 function togglePostLike(postId, userId) {
     const post = systemData.posts.find(p => p.id === postId);
-    if (!post) {
-        return { success: false, message: 'المنشور غير موجود' };
-    }
-
-    const likeIndex = post.likes.indexOf(userId);
-    if (likeIndex === -1) {
-        post.likes.push(userId);
-    } else {
-        post.likes.splice(likeIndex, 1);
-    }
-
+    if (!post) return { success: false, message: 'المنشور غير موجود' };
+    const i = post.likes.indexOf(userId);
+    if (i === -1) post.likes.push(userId);
+    else post.likes.splice(i, 1);
     saveData();
-    return { success: true, liked: likeIndex === -1 };
+    return { success: true, liked: i === -1 };
 }
 
 function addComment(postId, playerId, playerName, content) {
     const post = systemData.posts.find(p => p.id === postId);
-    if (!post) {
-        return { success: false, message: 'المنشور غير موجود' };
-    }
-
-    const newComment = {
-        playerId: playerId,
-        playerName: playerName,
-        content: content,
+    if (!post) return { success: false, message: 'المنشور غير موجود' };
+    const comment = {
+        playerId,
+        playerName,
+        content,
         timestamp: new Date().toISOString()
     };
-
-    post.comments.push(newComment);
+    post.comments.push(comment);
     saveData();
-    
-    return { success: true, message: 'تم إضافة التعليق بنجاح', comment: newComment };
+    return { success: true, comment };
 }
 
 function getChatMessages(userId1, userId2) {
     const chatId1 = `${userId1}_${userId2}`;
     const chatId2 = `${userId2}_${userId1}`;
-    
     let chat = systemData.privateMessages.find(c => c.chatId === chatId1 || c.chatId === chatId2);
-    
     if (!chat) {
-        chat = {
-            chatId: chatId1,
-            messages: []
-        };
+        chat = { chatId: chatId1, messages: [] };
         systemData.privateMessages.push(chat);
     }
-    
     return chat.messages;
 }
 
 function sendMessage(fromId, fromName, toId, content) {
     const chatId1 = `${fromId}_${toId}`;
     const chatId2 = `${toId}_${fromId}`;
-    
     let chat = systemData.privateMessages.find(c => c.chatId === chatId1 || c.chatId === chatId2);
-    
     if (!chat) {
-        chat = {
-            chatId: chatId1,
-            messages: []
-        };
+        chat = { chatId: chatId1, messages: [] };
         systemData.privateMessages.push(chat);
     }
-    
-    const newMessage = {
+    const message = {
         senderId: fromId,
         senderName: fromName,
-        content: content,
+        content,
         timestamp: new Date().toISOString()
     };
-    
-    chat.messages.push(newMessage);
+    chat.messages.push(message);
     saveData();
-    
-    return { success: true, message: newMessage };
+    return { success: true, message };
 }
 
-// تحميل البيانات عند بدء التطبيق
 loadData();
