@@ -27,6 +27,15 @@ const systemData = {
             isBlocked: false,
             joinDate: "2024-01-25"
         },
+        {
+            id: "Ali",
+            name: "علي ",
+            points: 82,
+            absences: 1,
+            rank: 3,
+            isBlocked: false,
+            joinDate: "2024-01-25"
+        },
  
     ],
 
