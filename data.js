@@ -19,20 +19,11 @@ const systemData = {
             joinDate: "2024-01-15"
         },
         {
-            id: "logain913", 
-            name: "أحمد علي",
-            points: 88,
-            absences: 2,
-            rank: 2,
-            isBlocked: false,
-            joinDate: "2024-01-20"
-        },
-        {
             id: "player003",
             name: "علي محمود",
             points: 82,
             absences: 1,
-            rank: 3,
+            rank: 2,
             isBlocked: false,
             joinDate: "2024-01-25"
         },
