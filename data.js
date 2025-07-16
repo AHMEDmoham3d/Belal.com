@@ -8,43 +8,7 @@ const systemData = {
     },
 
     players: [
-        {
-            id: "logain914",
-            name: "لوجين احمد",
-            points: 0,
-            absences: 0,
-            rank: 1,
-            isBlocked: false,
-            joinDate: "2024-01-15"
-        },
-        {
-            id: "logain913", 
-            name: "أحمد علي",
-            points: 88,
-            absences: 2,
-            rank: 2,
-            isBlocked: false,
-            joinDate: "2024-01-20"
-        },
-        {
-            id: "player003",
-            name: "علي محمود",
-            points: 82,
-            absences: 1,
-            rank: 3,
-            isBlocked: false,
-            joinDate: "2024-01-25"
-        },
-        {
-            id: "player004",
-            name: "خالد أحمد",
-            points: 75,
-            absences: 3,
-            rank: 4,
-            isBlocked: false,
-            joinDate: "2024-02-01"
-        },
-            {
+   {
       id: "Aiten10",
       name: "ايتن فتحى",
       points: 0,
