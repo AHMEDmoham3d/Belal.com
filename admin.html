@@ -8,37 +8,248 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../project/public/sports-styles.css">
     <style>
-        .admin-welcome {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .admin-welcome h1 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-        }
-        
-        .admin-welcome p {
-            opacity: 0.9;
-            font-size: 1.1rem;
-        }
-        
-        .admin-shield {
-            font-size: 3rem;
-            color: #FFD700;
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
-        }
-    </style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    body {
+      background-color: #f4f6f9;
+      direction: rtl;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 1rem;
+    }
+
+    .navbar {
+      background-color: #1e3c72;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      border-radius: 0 0 15px 15px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .navbar .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-btn,
+    .logout-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-btn.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .primary-btn,
+    .secondary-btn,
+    .media-btn {
+      background-color: #1e3c72;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .primary-btn:hover,
+    .media-btn:hover {
+      background-color: #274690;
+    }
+
+    .secondary-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .coach-section {
+      display: none;
+      margin-top: 2rem;
+    }
+
+    .coach-section.active {
+      display: block;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .posts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .messages-container {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    .players-list {
+      width: 30%;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-area {
+      flex-grow: 1;
+      background-color: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .chat-placeholder {
+      text-align: center;
+      color: #aaa;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .modal-form .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .modal-form label {
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: bold;
+    }
+
+    .modal-form input,
+    .modal-form textarea {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 1rem;
+    }
+
+    .chat-modal {
+      max-width: 600px;
+    }
+
+    .chat-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .chat-messages {
+      height: 200px;
+      overflow-y: auto;
+      background-color: #f0f0f0;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .chat-input input {
+      flex-grow: 1;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    .chat-input button {
+      padding: 0.5rem 1rem;
+      background-color: #1e3c72;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @keyframes pulse {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.1);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+  </style>
 </head>
 <body>
     <!-- صفحة المدرب -->
