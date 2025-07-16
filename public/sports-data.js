@@ -9,42 +9,15 @@ const systemData = {
 
     // اللاعبين
     players: [
-        {
-            id: "ahmed123",
-            name: "أحمد",
-            points: 85,
-            absences: 1,
-            rank: 1,
-            isBlocked: false,
-            joinDate: "2024-01-15"
-        },
-        {
-            id: "player002", 
-            name: "أحمد علي",
-            points: 78,
-            absences: 2,
-            rank: 2,
-            isBlocked: false,
-            joinDate: "2024-01-20"
-        },
-        {
-            id: "player003",
-            name: "علي محمود",
-            points: 72,
-            absences: 0,
-            rank: 3,
-            isBlocked: false,
-            joinDate: "2024-01-25"
-        },
-        {
-            id: "player004",
-            name: "خالد أحمد",
-            points: 65,
-            absences: 3,
-            rank: 4,
-            isBlocked: false,
-            joinDate: "2024-02-01"
-        }
+    {
+      "id": "Aiten10",
+      "name": "ايتن فتحى",
+      "points": 0,
+      "absences": 0,
+      "rank": 1,
+      "isBlocked": false,
+      "joinDate": "2024-02-01"
+    }
     ],
 
     // بطل الأسبوع
