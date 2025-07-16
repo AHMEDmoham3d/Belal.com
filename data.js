@@ -19,15 +19,6 @@ const systemData = {
             joinDate: "2024-01-15"
         },
         {
-            id: "Aiten11",
-            name: "ايتين",
-            points: 0,
-            absences: 0,
-            rank: 1,
-            isBlocked: false,
-            joinDate: "2024-01-15"
-        },
-        {
             id: "logain913", 
             name: "أحمد علي",
             points: 88,
@@ -45,15 +36,7 @@ const systemData = {
             isBlocked: false,
             joinDate: "2024-01-25"
         },
-        {
-            id: "player004",
-            name: "خالد أحمد",
-            points: 75,
-            absences: 3,
-            rank: 4,
-            isBlocked: false,
-            joinDate: "2024-02-01"
-        }
+ 
     ],
 
     // بطل الأسبوع
